@@ -1,0 +1,136 @@
+{% extends "auctions/layout.html" %}
+
+{% block body%}
+
+    <!-- In case for any error with a forms -->
+    {% if error %}
+        <div class="alert alert-danger">
+            {{ error_message }}
+        </div>
+    {% endif %}
+
+    <!-- If the user is the winner send a success alert-->
+    {% if winner %}
+    <div class="alert alert-success" role="alert">
+        <h3>You have won the auction</h3>
+    </div>
+    {% endif %}
+
+    <!-- Wheather the page is active display an appropriate title -->
+    {% if list.active %}
+    <div class="title">
+        <h1>{{ list.name }} </h1>
+    </div>
+    {% else %}
+    <div class="title">
+        <h1>{{ list.name }}    <span style="color: rgb(176, 18, 18);"> Closed </span></h1>
+    </div>
+    {% endif %}
+
+    <div style="display:flex; height: 45vh">
+        {% if list.image %}
+        <div class="image-div">
+            <img class="image"src={{ list.image.url }} alt="No Image">
+        </div>
+        {% endif %}
+        <div class="description">
+            <p>{{list.discription}}</p>
+        </div>
+    </div>
+    <hr>
+
+    <!-- Display the appropriate message depending on the status of teh list-->
+    <div>
+        {% if not list.active %}
+        <h3>Final Price: {{ list.price }}$</h3>
+        {% elif list.anyBids %}
+        <h3>Current Bid: {{ list.price }}$</h3>
+        {% else %}
+        <h3>Starting Bid: {{ list.price }}$</h3>
+        {% endif %}
+    </div>
+
+    <!-- Show the Bid Form  -->
+    {% if user.is_authenticated and list.active %}
+    <div class="bid-form">
+        {% if lastBid %}
+        <h6 style="margin:10px;">Current bid is yours</h6>
+        {% endif %}
+        <form class="bid-grid" action= "{% url 'listing' listing_id=list.id%}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="bid-input" >
+               {{ bidForm.as_p }}
+            </div>
+            <div>
+                <input class="send-button" type="submit" value="Place New Bid">
+            </div>
+        </form>
+    </div>
+    {% endif %}
+
+    <!-- Details of the listing -->
+    <div class="details">
+        <h3>Details:</h3>
+        <ul> 
+            <li>Category: {{list.category}}</li>
+            <li>Creator: <span style="font-weight: 700;">{{list.user.username}}</span></li>
+        </ul>
+    </div>
+
+    <!-- The watchlist and closing button -->
+    {% if user.is_authenticated and list.active %}
+    <div class="buttons">
+        <!-- Depending if the listing is in the user's watchlist show the appropriate buttonm-->
+        {% if inList %}
+        <form action="{% url 'remove_watchlist' listing_id=list.id %}" method="post">
+            {% csrf_token %}
+            <input class="remove-button" type="submit" value="Remove from a Watch List">
+        </form>
+        {% else %}
+        <form action="{% url 'add_watchlist' listing_id=list.id %}" method="post">
+            {% csrf_token %}
+            <input class="add-button" type="submit" value="Add to Watch List">
+        </form>
+        {% endif %}
+
+        <!-- If the current user is the creator then show the possibility of closing the listing -->
+        {% if creator %}
+            <form action="{% url 'diactivate' listing_id=list.id %}" method="post">
+                {% csrf_token %}
+                <input class="close-button" type="submit" value="Close Listing">
+            </form>
+        {% endif %}
+    </div>
+    <hr>
+
+    <!-- Show the comment form -->
+    <div class="comment">
+        <form action= "{% url 'add_comment' listing_id=list.id %}" method="post">
+            {% csrf_token %}
+            <div>
+                {{ comment_form }}
+            </div>
+            <div class="comment-button">
+                <input class="send-button" type="submit" value="Send Comment">
+            </div>
+        </form>
+    </div>
+    {% endif %}
+
+    {% if comments %}
+    <h4>Comments on the listing:</h4>
+    {% else %}
+    <h4>No comments</h4>
+    {% endif %}
+        
+    <!-- Display all of the comment on the listing -->
+    {% for comment in comments %}
+    <div class="card comment-card">
+        <div class="card-body">
+            <h5 class="card-title">Made by: {{comment.user.username}}</h2>
+            <p class="card-title">{{comment.comment}}</p>
+        </div>
+    </div>
+    {% endfor %}
+
+{% endblock %}

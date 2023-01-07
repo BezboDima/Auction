@@ -1,0 +1,22 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+<!-- Display message if the form is incorrect-->
+{% if error%}
+    <div class="alert alert-danger">
+       Make sure to include all required parameters
+    </div>
+{% endif %}
+
+<!-- Show the listing form -->
+<form action= "{% url 'new_listing' %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div>
+        {{listing_form}}
+    </div>
+    <div>
+        <input type="submit" class="new-listing-button" value="Create listing">
+    </div>
+</form> 
+{% endblock %}

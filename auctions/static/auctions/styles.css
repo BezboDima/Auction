@@ -1,0 +1,111 @@
+body {
+    padding: 10px;
+}
+.title{
+    font-size: 2em;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
+.nav-choice{
+    font-size: 1.4em;
+    font-family: Helvetica, sans-serif;
+}
+.category-choice{
+    text-align: center;
+}
+.add-button{
+    height: 40px;
+    margin: 10px 5px;
+    background-color:rgb(39, 148, 39);
+    color: whitesmoke;
+    font-family: Helvetica, sans-serif;
+    border-radius: 5px;
+}
+.remove-button{
+    height: 40px;
+    margin: 10px 5px;
+    background-color: rgb(223, 18, 18);
+    color: whitesmoke;
+    font-family: Helvetica, sans-serif;
+    border-radius: 5px;
+}
+.close-button{
+    height: 40px;
+    margin: 10px 5px;
+    background-color: rgb(136, 26, 26);
+    color: whitesmoke;
+    font-family: Helvetica, sans-serif;
+    border-radius: 5px;
+}
+.buttons{
+    display: flex;  
+    flex-direction: row;
+    padding : 5px; 
+    margin: 10px;
+}
+.send-button{
+    height: 39px;
+    background-color: rgb(51, 114, 214);
+    color: whitesmoke;
+    border-radius: 5px;
+}
+.image-div{
+    height: 100%;
+    margin: 10px 20px; 
+}
+.image{
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 5%;
+}
+.alert{
+    text-align: center;
+}
+.description{
+    margin: 10px 20px;
+    width: 55vw;
+}
+.comment {
+    width: 75%; 
+    padding: 5px; 
+    margin: 10px;
+}
+.comment-button{
+    margin-top: 10px;
+}
+.card{
+    width: 90vw ; 
+    max-height: 300px;
+    padding : 5px; 
+    margin: 10px; 
+}
+.image-card{
+    width:100%;
+    height:250px;
+    object-fit:contain;
+    object-position:50% 50%;
+}
+.card-img {
+    width: 100%;
+    height: 15vw;
+    background-size: contain;
+}
+.bid-input {
+    display:flex;
+    justify-content:center;
+}
+
+.bid-grid{
+    display: grid;
+    grid-template-columns: 220px 250px
+}
+
+.bid-form{
+    margin: 10px 10px;
+}
+
+.new-listing-button{
+    width: 4cm; 
+    background: rgb(26, 115, 232); 
+    color:white;
+}
