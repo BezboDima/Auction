@@ -3,14 +3,14 @@
 {% block body %}
     <h2 class="title">Watch List</h2>
     {% for listing in watch_list %}
-    <div class="card mb-3 p-3">
+    <div class="card mb-3 p-3 col-sm-9">
         <div class="row no-gutters">
             {% if listing.image %}
-            <div class="col-sm-5">
-                <img src={{ listing.image.url }} class="card-img" alt="...">
+            <div class="col-sm-3">
+                <img class="image-card" src={{ listing.image.url }} class="card-img" alt="...">
             </div>
             {% endif %}
-            <div class="col-sm-6">
+            <div class="col-sm-9">
                 <div class="card-body">
                     <h4 class="card-title">{{listing.name}}{%if not listing.active%}<span style="color: rgb(176, 18, 18);"> Closed </span>{%endif%}</h4>
                     <h6 class="card-title">Price: {{listing.price}} $</h6>
